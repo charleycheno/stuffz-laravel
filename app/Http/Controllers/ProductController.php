@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -56,25 +56,8 @@ class ProductController extends Controller
     public function update(Request $request, string $id)
     {
         $product = Product::find($id);
-
-        $product->name = $request->name;
-        $product->description = $request->description;
-        $product->color = $request->color;
-        $product->size = $request->size;
-        $product->type = $request->type;
-        $product->price = $request->price;
-
-        $result = $product->save();
-
-        if($result) {
-            return response()->json([
-                'message' => 'Product updated successfully',
-            ], 200);
-        } else {
-            return response()->json([
-                'message' => 'Failed to update product',
-            ], 400);
-        }
+        $product->update($request->all());
+        return response()->json($product);
     }
 
     /**

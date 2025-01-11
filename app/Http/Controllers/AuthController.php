@@ -50,8 +50,8 @@ class AuthController extends Controller
           'email' => $request->email,
           'password' => Hash::make($request->string('password')),
         ]);
-
-        new Verified($request->user());
+ 
+        event(new Registered($user));
         
         $token = $user->createToken('user-token')->plainTextToken;
 
@@ -61,6 +61,24 @@ class AuthController extends Controller
         ];
 
         return response()->json($response, 201);
+    }
+
+    public function verifyEmail(Request $request) {
+        $user = User::find($request->route('id'));
+
+        if(!$user) {
+          return response()->json(['message' => 'User not found'], 404);
+        }
+    
+        if (!hash_equals((string) $request->route('hash'), sha1($user->getEmailForVerification()))) {
+            return response()->json(['message' => 'The provided URL is invalid'], 400);
+        }
+    
+        if ($user->markEmailAsVerified()){
+            event(new Verified($user));
+        }
+    
+        return redirect(env('FRONTEND_URL', 'https://google.com'));
     }
 
     public function logout() {

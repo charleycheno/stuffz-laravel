@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Product::all();
+        return Order::all();
     }
 
     /**
@@ -20,17 +20,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $product = new Product();
-        $product->fill($request->all());
-        $result = $product->save();
+        $order = new Order();
+        $order->fill($request->all());
+        $result = $order->save();
 
         if($result) {
             return response()->json([
-                'message' => 'Product created successfully',
+                'message' => 'Order created successfully',
             ], 201);
         } else {
             return response()->json([
-                'message' => 'Failed to create product',
+                'message' => 'Failed to create order',
             ], 400);
         }
     }
@@ -40,7 +40,7 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        return Product::find($id);
+        return Order::find($id);
     }
 
     /**
@@ -48,9 +48,19 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $product = Product::find($id);
-        $product->update($request->all());
-        return response()->json($product);
+        $order = Order::find($id);
+        $order->fill($request->all());
+        $result = $order->save();
+
+        if($result) {
+            return response()->json([
+                'message' => 'Order updated successfully',
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'Failed to update order',
+            ], 400);
+        }
     }
 
     /**
@@ -58,15 +68,16 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        $result = Product::destroy($id);
+        $order = Order::find($id);
+        $result = $order->delete();
 
         if($result) {
             return response()->json([
-                'message' => 'Product deleted successfully',
+                'message' => 'Order deleted successfully',
             ], 200);
         } else {
             return response()->json([
-                'message' => 'Failed to delete product',
+                'message' => 'Failed to delete order',
             ], 400);
         }
     }

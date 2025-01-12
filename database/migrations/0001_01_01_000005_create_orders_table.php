@@ -17,6 +17,8 @@ return new class extends Migration
 
             $table->string('status');
 
+            $table->string('payment_id')->nullable();
+
             $table->string('shipping_method');
 
             $table->string('name');

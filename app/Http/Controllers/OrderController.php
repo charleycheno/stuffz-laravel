@@ -22,7 +22,7 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {   
+    {
         $request->validate([
             'shipping_method' => 'required|string',
             'name' => 'required|string',
@@ -52,10 +52,29 @@ class OrderController extends Controller
             $orderProduct->price_sum = $product->price * $i['quantity'];
             $orderProduct->save();
         }
+
+        $totalPrice = Order::find($order->id)->orderProducts->sum('price_sum');
+        $totalPrice = number_format((float)$totalPrice, 2, '.', '');
+
+        $mollie = new \Mollie\Api\MollieApiClient();
+        $mollie->setApiKey(env('MOLLIE_API_KEY', null));
+
+        $payment = $mollie->payments->create([
+          "amount" => [
+              "currency" => "EUR",
+              "value" => $totalPrice,
+          ],
+          "description" => "Order #{$order->id}",
+          "redirectUrl" => env("FRONTEND_URL")."/orders/{$order->id}",
+        ]);
+
+        $order->payment_id = $payment->id;
+        $order->save();
         
         if($result) {
             return response()->json([
                 'message' => 'Order created successfully',
+                'payment_url' => $payment->getCheckoutUrl(),
             ], 201);
         } else {
             return response()->json([

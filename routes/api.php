@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderProductController;
 
 // Auth routes
 
@@ -17,11 +18,12 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 
 // Resource routes
 
-Route::apiResource('users', UserController::class);
 Route::apiResource('products', ProductController::class);
-Route::apiResource('orders', OrderController::class);
 
 // Protected routes
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+  Route::apiResource('users', UserController::class);
+  Route::apiResource('orders', OrderController::class);
+  Route::apiResource('order-products', OrderProductController::class);
 });

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -10,8 +9,6 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'status',
-        'total',
-        'payment_method',
         'shipping_method',
         'name',
         'address',

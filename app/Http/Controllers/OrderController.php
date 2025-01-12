@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -19,11 +22,37 @@ class OrderController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        $request->validate([
+            'shipping_method' => 'required|string',
+            'name' => 'required|string',
+            'address' => 'required|string',
+            'postal_code' => 'required|string',
+            'city' => 'required|string',
+            'products' => 'required|array',
+            'products.*.product_id' => 'required|integer',
+            'products.*.quantity' => 'required|integer',
+        ]);
+
         $order = new Order();
+        
         $order->fill($request->all());
+        $order->user_id = Auth::id();
+        $order->status = 'pending';
+        $order->tracking_number = uniqid();
         $result = $order->save();
 
+        $orderProducts = $request->products;
+        
+        foreach($orderProducts as $i) {
+            $orderProduct = new OrderProduct();
+            $orderProduct->fill($i);
+            $orderProduct->order_id = $order->id;
+            $product = Product::find($i['product_id']);
+            $orderProduct->price_sum = $product->price * $i['quantity'];
+            $orderProduct->save();
+        }
+        
         if($result) {
             return response()->json([
                 'message' => 'Order created successfully',

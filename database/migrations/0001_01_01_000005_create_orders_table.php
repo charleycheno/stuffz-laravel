@@ -16,9 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
             $table->string('status');
-            $table->double('total');
-
-            $table->string('payment_method');
 
             $table->string('shipping_method');
 
@@ -27,7 +24,7 @@ return new class extends Migration
             $table->string('postal_code');
             $table->string('city');
 
-            $table->string('tracking_number')->nullable();
+            $table->string('tracking_number');
             $table->timestamps();
         });
     }

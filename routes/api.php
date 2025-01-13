@@ -16,9 +16,10 @@ Route::post('register', [AuthController::class, 'register']);
 Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-// Resource routes
+// Public routes
 
 Route::apiResource('products', ProductController::class);
+Route::get('users/{id}/orders', [UserController::class, 'orders']);
 
 // Protected routes
 

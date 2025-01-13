@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Mail\OrderCreated;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -70,6 +72,8 @@ class OrderController extends Controller
 
         $order->payment_id = $payment->id;
         $order->save();
+
+        Mail::to($request->user())->send(new OrderCreated($order, $orderProducts, $totalPrice));
         
         if($result) {
             return response()->json([

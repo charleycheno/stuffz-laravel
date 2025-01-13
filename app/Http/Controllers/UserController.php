@@ -72,4 +72,10 @@ class UserController extends Controller
           ], 400);
       }
     }
+
+    public function orders(string $id)
+    {
+        $user = User::find($id);
+        return response()->json($user->orders);
+    }
 }

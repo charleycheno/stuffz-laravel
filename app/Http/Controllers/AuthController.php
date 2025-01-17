@@ -15,6 +15,13 @@ use Illuminate\Auth\Events\Verified;
 
 class AuthController extends Controller
 {
+    public function auth() {
+        return response()->json([
+          'message' => 'Authenticated',
+          'user' => Auth::user(),
+        ], 200);
+    }
+    
     public function login(Request $request) {
         $credentials = $request->validate([
           'email' => ['required', 'string', 'email'],
@@ -79,7 +86,7 @@ class AuthController extends Controller
             event(new Verified($user));
         }
     
-        return view('auth.email_verified');
+        return redirect(env('FRONTEND_URL').'/verification-confirmed');
     }
 
     public function forgotPassword(Request $request) {

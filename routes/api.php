@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderProductController;
 
 // Auth routes
 
+Route::get('auth', [AuthController::class, 'auth'])->middleware('auth:sanctum');
 Route::post('login', [AuthController::class, 'login']);
 Route::post('register', [AuthController::class, 'register']);
 Route::get('verify-email/{id}/{hash}', [AuthController::class, 'verifyEmail'])->name('verification.verify');

@@ -18,11 +18,10 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'description' => fake()->sentence(),
             'image_url' => fake()->imageUrl(),
             'color' => fake()->colorName(),
-            'size' => fake()->randomElement(['S', 'M', 'L']),
-            'type' => fake()->randomElement(['Wild', 'Pet', 'Seasonal']),
+            'type' => fake()->randomElement(['Beer', 'Leeuw', 'Hond', 'Poes', 'Olifant', 'Engels', 'Meisje', 'Knuffel']),
+            'category' => fake()->numberBetween(1, 3),
             'price' => fake()->randomFloat(2, 10, 100),
         ];
     }

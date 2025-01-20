@@ -22,12 +22,6 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 // Public routes
 
 Route::apiResource('products', ProductController::class);
+Route::apiResource('users', UserController::class);
 Route::get('users/{id}/orders', [UserController::class, 'orders']);
-
-// Protected routes
-
-Route::group(['middleware' => ['auth:sanctum']], function () {
-  Route::apiResource('users', UserController::class);
-  Route::apiResource('orders', OrderController::class);
-  Route::apiResource('order-products', OrderProductController::class);
-});
+Route::apiResource('orders', OrderController::class);

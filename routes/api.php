@@ -19,9 +19,9 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->midd
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->middleware('guest')->name('password.update');
 Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-// Public routes
+// Resource routes
 
 Route::apiResource('products', ProductController::class);
 Route::apiResource('users', UserController::class);
 Route::get('users/{id}/orders', [UserController::class, 'orders']);
-Route::apiResource('orders', OrderController::class);
+Route::apiResource('orders', OrderController::class)->middleware('auth:sanctum');

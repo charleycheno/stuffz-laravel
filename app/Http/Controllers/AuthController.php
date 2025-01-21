@@ -86,7 +86,7 @@ class AuthController extends Controller
             event(new Verified($user));
         }
     
-        return redirect(env('FRONTEND_URL').'/verification-confirmed');
+        return view('auth.verified');
     }
 
     public function forgotPassword(Request $request) {

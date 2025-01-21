@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    // Allows a factory to generate dummy data
+
     use HasFactory;
+
+    // Defines which attributes are mass assignable
 
     protected $fillable = [
         'name',

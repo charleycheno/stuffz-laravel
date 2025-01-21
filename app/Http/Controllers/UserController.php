@@ -73,6 +73,8 @@ class UserController extends Controller
       }
     }
 
+    // Gets all the orders of one user
+
     public function orders(string $id)
     {
         $user = User::find($id);

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
+    // Defines which attributes are mass assignable
+
     protected $fillable = [
         'user_id',
         'status',
@@ -18,10 +20,14 @@ class Order extends Model
         'tracking_number',
     ];
 
+    // Creates a many-to-one relationship with users
+
     public function users()
     {
         return $this->belongsTo(User::class);
     }
+    
+    // Creates a one-to-many relationship with order products
 
     public function orderProducts()
     {

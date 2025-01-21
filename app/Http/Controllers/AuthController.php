@@ -15,12 +15,16 @@ use Illuminate\Auth\Events\Verified;
 
 class AuthController extends Controller
 {
+    // Checks whether the user is authenticated and returns its user object
+
     public function auth() {
         return response()->json([
           'message' => 'Authenticated',
           'user' => Auth::user(),
         ], 200);
     }
+    
+    // Return a generated token if credentials match
     
     public function login(Request $request) {
         $credentials = $request->validate([
@@ -45,6 +49,8 @@ class AuthController extends Controller
           'email' => 'The provided credentials are incorrect',
         ]);
     }
+
+    // Hash the password and return a generated token and user object if credentials are valid
 
     public function register(Request $request) {
         $request->validate([
@@ -71,6 +77,8 @@ class AuthController extends Controller
         return response()->json($response, 201);
     }
 
+    // Verifies user and returns a confirmation
+
     public function verifyEmail(Request $request) {
         $user = User::find($request->route('id'));
 
@@ -89,6 +97,8 @@ class AuthController extends Controller
         return view('auth.verified');
     }
 
+    // Sends a password reset link to the users email
+
     public function forgotPassword(Request $request) {
       $request->validate(['email' => 'required|email']);
     
@@ -98,6 +108,8 @@ class AuthController extends Controller
     
       return response()->json(['message' => __($status)]);
     }
+
+    // Resets the password
 
     public function resetPassword(Request $request) {
         $request->validate([
@@ -121,6 +133,8 @@ class AuthController extends Controller
      
         return response()->json(['message' => __($status)]);
     }
+
+    // Deletes the current access token
 
     public function logout() {
         Auth::user()->currentAccessToken()->delete();

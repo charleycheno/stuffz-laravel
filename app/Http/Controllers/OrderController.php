@@ -28,9 +28,6 @@ class OrderController extends Controller
         $request->validate([
             'shipping_method' => 'required|string',
             'name' => 'required|string',
-            'address' => 'required|string',
-            'postal_code' => 'required|string',
-            'city' => 'required|string',
             'products' => 'required|array',
             'products.*.product_id' => 'required|integer',
             'products.*.quantity' => 'required|integer',
@@ -67,7 +64,7 @@ class OrderController extends Controller
               "value" => $totalPrice,
           ],
           "description" => "Order #{$order->id}",
-          "redirectUrl" => env("FRONTEND_URL")."/orders/{$order->id}",
+          "redirectUrl" => env("FRONTEND_URL")."/betaald.html",
         ]);
 
         $order->payment_id = $payment->id;

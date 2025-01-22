@@ -257,7 +257,7 @@ class ProductSeeder extends Seeder
       ]);
       
       Product::factory()->create([
-        'name' => 'Sinterklaas',
+        'name' => 'Sientje de sint',
         'image_url' => 'https://www.vmtraktaties.nl/assets/webshop/thumbs/600/941_1.jpg',
         'color' => 'rood',
         'type' => 'sinterklaas',
@@ -267,7 +267,7 @@ class ProductSeeder extends Seeder
       
       Product::factory()->create([
         'name' => 'Billie de beer',
-        'image_url' => '',
+        'image_url' => 'https://www.bebetos.nl/wp-content/uploads/2025/01/beer.jpg',
         'color' => 'bruin',
         'type' => 'beer',
         'category' => 3,
@@ -276,7 +276,7 @@ class ProductSeeder extends Seeder
       
       Product::factory()->create([
         'name' => 'Arie de aap',
-        'image_url' => '',
+        'image_url' => 'https://www.kraam-cadeau.nl//Files/2/79000/79723/ProductPhotos/1920x620/2038952079.jpg',
         'color' => 'grijs',
         'type' => 'wild dier',
         'category' => 3,
@@ -284,17 +284,8 @@ class ProductSeeder extends Seeder
       ]);
       
       Product::factory()->create([
-        'name' => 'Kim het konijn',
-        'image_url' => '',
-        'color' => 'roze',
-        'type' => 'huisdier',
-        'category' => 3,
-        'price' => 49.5,
-      ]);
-      
-      Product::factory()->create([
         'name' => 'Kasper het konijn',
-        'image_url' => '',
+        'image_url' => 'https://www.tilleys.nl/media/catalog/product/cache/1cb6035d8253075f8574abc32583876d/H/A/HAFA3C_1_1cfb.JPG',
         'color' => 'groen',
         'type' => 'huisdier',
         'category' => 3,
@@ -302,8 +293,17 @@ class ProductSeeder extends Seeder
       ]);
       
       Product::factory()->create([
+        'name' => 'Koen het konijn',
+        'image_url' => 'https://www.tilleys.nl/media/catalog/product/cache/1cb6035d8253075f8574abc32583876d/H/A/HA1FD3_1_5535.JPG',
+        'color' => 'blauw',
+        'type' => 'huisdier',
+        'category' => 3,
+        'price' => 50,
+      ]);
+      
+      Product::factory()->create([
         'name' => 'Kato het konijn',
-        'image_url' => '',
+        'image_url' => 'https://www.kidsdeco.nl/media/catalog/product/cache/d58547df719c65c55a252a98e81f8008/k/n/knuffeldoekje-bm-beige.jpg',
         'color' => 'bruin',
         'type' => 'huisdier',
         'category' => 3,

@@ -22,9 +22,9 @@ return new class extends Migration
             $table->string('shipping_method');
 
             $table->string('name');
-            $table->string('address');
-            $table->string('postal_code');
-            $table->string('city');
+            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('city')->nullable();
 
             $table->string('tracking_number');
             $table->timestamps();
